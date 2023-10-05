@@ -16,13 +16,13 @@ find_package(Qt6 COMPONENTS
         REQUIRED)
 
 add_executable(CardCalc main.cpp
-        Card.cpp
-        Card.h
-        calculator.cpp
-        calculator.h
-        calculator.cpp
-        calculator.h
-        calculator.cpp
+        CardGroup.cpp
+        CardGroup.h
+        Calculator.cpp
+        Calculator.h
+        Calculator.cpp
+        Calculator.h
+        Calculator.cpp
 )
 target_link_libraries(CardCalc
         Qt::Core

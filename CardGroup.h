@@ -22,6 +22,8 @@ public:
 
     int getSuccesses() const;
 
+    void setSuccesses(int successes);
+
 private:
     int NumberOfCards;
     std::string GroupName;

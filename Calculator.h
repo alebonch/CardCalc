@@ -20,10 +20,19 @@ public:
     void removeGroup(int id);
     void changeGroupN(int id, int value);
 
-    double binomC(int n, int k);
+    void changeGroupS(int id, int value);
+
+    float binomC(int n, int k);
 
     int Probability();
 
+    bool isSecond() const;
+
+    bool isThird() const;
+
+    void setSecond(bool second);
+
+    void setThird(bool third);
 
     void setDecksize(const int &decksize);
 
@@ -32,6 +41,11 @@ public:
 private:
     int decksize, startinghand;
     std::vector<CardGroup> groups;
+
+    float calculate(CardGroup group);
+
+    bool second;
+    bool third;
 };
 
 

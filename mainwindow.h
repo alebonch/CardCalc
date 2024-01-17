@@ -21,11 +21,34 @@ private slots:
 
     void on_pushButton_clicked();
 
-    void on_tabWidget_tabBarClicked(int index);
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_spinBox_valueChanged(int arg1);
+
+    void on_spinBox_2_valueChanged(int arg1);
+
+    void on_spinBox_9_valueChanged(int arg1);
+
+    void on_spinBox_24_valueChanged(int arg1);
+
+    void on_spinBox_15_valueChanged(int arg1);
+
+    void on_spinBox_25_valueChanged(int arg1);
+
+    void on_spinBox_14_valueChanged(int arg1);
+
+    void on_spinBox_26_valueChanged(int arg1);
 
 private:
     Ui::MainWindow *ui;
     Calculator calculator;
+
 
 };
 

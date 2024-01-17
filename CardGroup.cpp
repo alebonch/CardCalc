@@ -26,3 +26,7 @@ int CardGroup::getSuccesses() const {
     return this->Successes;
 }
 
+void CardGroup::setSuccesses(int successes) {
+    Successes = successes;
+}
+

@@ -10,11 +10,7 @@
 
 class CardGroup {
 public:
-    CardGroup(int numberOfCards, int minValue);
-
-    void setMin(const int &value);
-
-    void setMax(const int &value);
+    CardGroup(int numberOfCards, int successes);
 
     void setNumber(const int &value);
 
@@ -24,15 +20,12 @@ public:
 
     int getNumberOfCards() const;
 
-    int getMinValue() const;
-
-    int getMaxValue() const;
+    int getSuccesses() const;
 
 private:
     int NumberOfCards;
-    int minValue;
-    int maxValue;
     std::string GroupName;
+    int Successes;
 };
 
 

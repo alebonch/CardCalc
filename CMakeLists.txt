@@ -23,6 +23,9 @@ add_executable(CardCalc main.cpp
         Calculator.cpp
         Calculator.h
         Calculator.cpp
+        mainwindow.cpp
+        mainwindow.h
+        mainwindow.ui
 )
 target_link_libraries(CardCalc
         Qt::Core

@@ -6,24 +6,24 @@
 #define CARDCALC_CALCULATOR_H
 
 #include <list>
+#include <vector>
 #include "CardGroup.h"
+#include "iostream"
+#include <cmath>
 
 
 class Calculator {
 public:
-    Calculator(int decksize, int startinghand);
+    Calculator(int decksize = 1, int startinghand = 1);
 
     void addGroup(const CardGroup &add);
-
     void removeGroup(int id);
-    void changeGroupMin(int id, int value);
     void changeGroupN(int id, int value);
 
-    float calculategroups();
+    double binomC(int n, int k);
 
-    float calculate(CardGroup group);
+    int Probability();
 
-    float binomialcoefficient(int n, int start);
 
     void setDecksize(const int &decksize);
 
@@ -31,8 +31,7 @@ public:
 
 private:
     int decksize, startinghand;
-    int totalmin;
-    std::list<CardGroup> groups;
+    std::vector<CardGroup> groups;
 };
 
 

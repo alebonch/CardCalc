@@ -3,20 +3,6 @@
 //
 
 #include "Calculator.h"
-
-/*
-CardGroup* Calculator::find(const int &id) {
-    int i=0;
-    for(auto it=begin(groups); it!=end(groups);++it){
-        if(id==i) {
-            CardGroup* tmp=&it;
-            return it;
-        }
-        else
-            i++;
-    }
-}
-*/
 Calculator::Calculator(int decksize, int startinghand) : decksize(decksize), startinghand(startinghand) {
 }
 
@@ -37,17 +23,6 @@ void Calculator::removeGroup(int id) {
     }
 }
 
-void Calculator::changeGroupMin(int id, int value) {
-    int i = 0;
-    for (auto it = begin(groups); it != end(groups); ++it) {
-        if (id == i) {
-            it->setMin(value);
-            break;
-        } else
-            i++;
-    }
-}
-
 void Calculator::changeGroupN(int id, int value) {
     int i = 0;
     for (auto it = begin(groups); it != end(groups); ++it) {
@@ -60,47 +35,27 @@ void Calculator::changeGroupN(int id, int value) {
 
 }
 
-float Calculator::calculategroups() {
-    int i = 0;
-    float final = 1;
-    for (auto it = begin(groups); it != end(groups); ++it) {
-        final *= calculate(*it);
-    }
-    return final;
-}
-
-float Calculator::calculate(CardGroup group) {
-    if (group.getMinValue() < 0 or group.getMinValue() > startinghand or group.getMinValue() > decksize)
-        return 0;
-    float probability = 0;
-    for (int i = group.getMinValue(); i < startinghand; ++i) {
-        float waysToChooseGroup = binomialcoefficient(group.getNumberOfCards(), i);
-        float waysToChooseOther = binomialcoefficient(decksize - group.getNumberOfCards(), startinghand - i);
-        float totalWaysToChoose = binomialcoefficient(decksize, startinghand);
-        probability += (waysToChooseGroup * waysToChooseOther) / totalWaysToChoose;
-
-    }
-
-    return probability;
-}
-
-float Calculator::binomialcoefficient(int n, int start) {
-    if (start < 0 or start > n) {
-        return 0;
-    }
-    unsigned long long result = 1;
-    for (int i = 0; i < start; ++i) {
-        result *= (n - i);
-        result /= (i + 1);
-    }
-
-    return result;
-}
-
 void Calculator::setDecksize(const int &decksize) {
     Calculator::decksize = decksize;
 }
 
 void Calculator::setStartinghand(const int &startinghand) {
     Calculator::startinghand = startinghand;
+}
+
+double Calculator::binomC(int n, int k) {
+    return std::exp(std::lgamma(double(n) + 1.0) - std::lgamma(double(n - k) + 1.0));
+}
+
+int Calculator::Probability() {
+    double final = 1;
+    int sum = 0;
+    int totalsuccesses = 0;
+    for (auto it: groups) {
+        final *= binomC(it.getNumberOfCards(), it.getSuccesses());
+        sum += it.getNumberOfCards();
+        totalsuccesses += it.getSuccesses();
+    }
+    final = final * binomC(decksize - sum, (startinghand - totalsuccesses)) / binomC(decksize, startinghand);
+    return int(final * 100);
 }

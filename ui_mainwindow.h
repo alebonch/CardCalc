@@ -66,6 +66,7 @@ public:
     QLabel *label_15;
     QPushButton *pushButton_2;
     QFrame *frame_2;
+
     QWidget *horizontalLayoutWidget_50;
     QHBoxLayout *horizontalLayout_76;
     QSpinBox *spinBox_25;
@@ -420,6 +421,9 @@ public:
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
+
+        frame_2->hide();
+        frame_3->hide();
 
         retranslateUi(MainWindow);
         QObject::connect(pushButton_6, &QPushButton::clicked, frame_3, qOverload<>(&QFrame::hide));

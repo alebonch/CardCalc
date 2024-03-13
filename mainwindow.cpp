@@ -18,7 +18,7 @@ MainWindow::~MainWindow() {
 void MainWindow::on_pushButton_clicked() {
     //calcola
 
-    ui->calcola->setText(QString("Probability: ") + QString::number(calculator.Probability()) + QString("%"));
+    ui->calcola->setText(QString("Probability: ") + QString::number(calculator.Probability(), 'f', 2) + QString("%"));
 }
 
 //primo "+"
@@ -94,4 +94,8 @@ void MainWindow::on_spinBox_14_valueChanged(int arg1) {
 //spinbox 3rd group number of successes
 void MainWindow::on_spinBox_26_valueChanged(int arg1) {
     calculator.changeGroupS(2, arg1);
+}
+
+Calculator MainWindow::getCalc() {
+    return calculator;
 }

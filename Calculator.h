@@ -24,9 +24,13 @@ public:
 
     float binomC(int n, int k);
 
-    int Probability();
+    float Probability();
 
     bool isSecond() const;
+
+    CardGroup getGroup(int id);
+
+    std::vector<CardGroup> getGroups();
 
     bool isThird() const;
 
@@ -41,8 +45,6 @@ public:
 private:
     int decksize, startinghand;
     std::vector<CardGroup> groups;
-
-    float calculate(CardGroup group);
 
     bool second;
     bool third;

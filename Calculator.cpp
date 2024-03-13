@@ -28,15 +28,6 @@ void Calculator::removeGroup(int id) {
 void Calculator::changeGroupN(int id, int value) {
 
     groups.at(id).setNumber(value);
-    /*
-    for (auto it = begin(groups); it != end(groups); ++it) {
-        if (id == i) {
-            it->setNumber(value);
-            break;
-        } else
-            i++;
-    }
-*/
 }
 
 void Calculator::setDecksize(const int &decksize) {
@@ -60,47 +51,49 @@ float Calculator::binomC(int n, int k) {
     return result;
 }
 
-int Calculator::Probability() {
-    float final = 1;
-    for (auto it = begin(groups); it != end(groups); ++it) {
-        final *= calculate(*it);
+float Calculator::Probability() {
+    float final = 0;
+    if (isThird()) {
+        float partial;
+        int sum = groups[0].getNumberOfCards() + groups[1].getNumberOfCards() + groups[2].getNumberOfCards();
+        int max = startinghand - (groups[0].getSuccesses() + groups[1].getSuccesses() + groups[2].getSuccesses()) + 1;
+        for (int j = groups[0].getSuccesses(); j <= max; j++) {
+            partial = binomC(groups[0].getNumberOfCards(), j);
+            for (int k = groups[1].getSuccesses(); k <= max; k++) {
+                float partial1 = binomC(groups[1].getNumberOfCards(), k);
+                for (int l = groups[2].getSuccesses(); l <= max; l++) {
+                    final += partial * partial1 * binomC(groups[2].getNumberOfCards(), l) *
+                             (binomC(decksize - sum, decksize - sum -
+                                                     (startinghand - ((j) + (k) + (l))))) /
+                             binomC(decksize, startinghand);
+                }
+            }
+        }
+        return final * 100;
+    }
+    if (isSecond()) {
+        float partial;
+        int sum = groups[0].getNumberOfCards() + groups[1].getNumberOfCards();
+        int max = startinghand - (groups[0].getSuccesses() + groups[1].getSuccesses()) + 1;
+        for (int j = groups[0].getSuccesses(); j <= max; j++) {
+            partial = binomC(groups[0].getNumberOfCards(), j);
+            for (int k = groups[1].getSuccesses(); k <= max; k++) {
+                final += partial * binomC(groups[1].getNumberOfCards(), k) *
+                         (binomC(decksize - sum, decksize - sum - (startinghand -
+                                                                   ((j) + (k))))) / binomC(decksize, startinghand);
+            }
+        }
+        return final * 100;
+    }
+    for (int j = groups[0].getSuccesses(); j <= startinghand; j++) {
+        final += binomC(groups[0].getNumberOfCards(), j) *
+                 (binomC(decksize - groups[0].getNumberOfCards(), decksize - groups[0].getNumberOfCards() -
+                                                                  (startinghand - (j)))) /
+                 binomC(decksize, startinghand);
     }
     return final * 100;
+
 }
-
-float Calculator::calculate(CardGroup group) {
-    if (group.getSuccesses() < 0 or group.getSuccesses() > startinghand or group.getSuccesses() > decksize)
-        return 0;
-    float probability = 0;
-    for (int i = group.getSuccesses(); i < startinghand; ++i) {
-        float waysToChooseGroup = binomC(group.getNumberOfCards(), i);
-        float waysToChooseOther = binomC(decksize - group.getNumberOfCards(), startinghand - i);
-        float totalWaysToChoose = binomC(decksize, startinghand);
-        probability += (waysToChooseGroup * waysToChooseOther) / totalWaysToChoose;
-
-    }
-
-    return probability;
-}
-
-/*
-double Calculator::binomC(int n, int k) {
-    return std::exp(std::lgamma(double(n) + 1.0) - std::lgamma(double(n - k) + 1.0));
-}
-
-int Calculator::Probability() {
-    double final = 0;
-    int sum = 0;
-    int totalsuccesses = 0;
-    for (auto it: groups) {
-        final += binomC(it.getNumberOfCards(), it.getSuccesses());
-        sum += it.getNumberOfCards();
-        totalsuccesses += it.getSuccesses();
-    }
-    final = final + binomC(decksize - sum, (startinghand - totalsuccesses)) - binomC(decksize, startinghand);
-    return int(final * 100);
-}
- */
 void Calculator::changeGroupS(int id, int value) {
     groups.at(id).setSuccesses(value);
 }
@@ -119,4 +112,12 @@ void Calculator::setSecond(bool second) {
 
 void Calculator::setThird(bool third) {
     Calculator::third = third;
+}
+
+CardGroup Calculator::getGroup(int id) {
+    return this->groups[id];
+}
+
+std::vector<CardGroup> Calculator::getGroups() {
+    return this->groups;
 }

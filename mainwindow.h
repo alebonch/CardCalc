@@ -11,8 +11,11 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow {
 Q_OBJECT
-
 public:
+
+    Calculator getCalc();
+
+
     MainWindow(QWidget *parent = nullptr);
 
     ~MainWindow();

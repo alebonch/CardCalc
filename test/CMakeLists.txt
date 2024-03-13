@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
-project(CardCalc)
+project(Tests)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
@@ -17,21 +17,23 @@ find_package(Qt6 COMPONENTS
         REQUIRED)
 
 
-add_executable(CardCalc main.cpp
-        CardGroup.cpp
-        CardGroup.h
-        Calculator.cpp
-        Calculator.h
-        Calculator.cpp
-        Calculator.h
-        Calculator.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+add_executable(Tests
+        ../Calculator.cpp
+        ../Calculator.h
+        CalculatorTest.cpp
+        ../CardGroup.h
+        ../CardGroup.cpp
 )
-target_link_libraries(CardCalc
+
+enable_testing(true)
+
+add_test(NAME tests COMMAND calculator)
+
+qt_add_executable(tests CalculatorTest.cpp)
+
+target_link_libraries(Tests
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        Qt::Test
 )
-
